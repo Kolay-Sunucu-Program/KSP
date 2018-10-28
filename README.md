@@ -21,4 +21,5 @@ KSP (Kolay Sunucu Programı)
 İletişim için  
 
 email : kolaysunucuprogram@gmail.com
+
 twitter : @KSP_Programla
