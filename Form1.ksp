@@ -1,0 +1,17 @@
+zincir form_veri = FORM_VERI();
+
+YAZ form_veri;
+
+/*
+Buradaki bilgileri aldýktan sonra isterseniz zincir fonksiyonu 
+ile ayýklayabilir. Ýsterseniz direkt olarak veritabaný iþleminde 
+kullanabilirsiniz.
+
+Örneðin 
+SELECT column1, column2, ... FROM tablo_ismi;
+
+Buradaki sütun isimleri yukarýdaki form verisinden gelebilir.
+*/
+
+//Örnek sorgulama : Tabiki baðlantý gibi iþlemleri gerçekleþtirdikten sonra
+zincir sorgu = "SELECT " + form_veri + " FROM tablo_ismi";
