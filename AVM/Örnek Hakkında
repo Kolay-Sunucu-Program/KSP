@@ -1,6 +1,7 @@
 Bu örneği Apache sunucunuzun web sayfalarınızın 
 bulunduğu ana klasöre .../AVM/.... klasörü altında 
-kopyalayabilirsiniz.
+kopyalayabilirsiniz. Web tarayıcısından www/../AVM/ana.ksp
+dosyasını çağırın.
 
 Bu örnekte herhangi bir tasarım amacı güdülmemiştir. 
 Amaç KSP dilinin bir web sayfası ile nasıl çalışabileceğini , 
