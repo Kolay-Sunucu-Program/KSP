@@ -10,8 +10,7 @@ sınıf Eposta_Hesabım
 	boş Kur(); 								// sınıf elemanlarını başlatma
 	zincir kişi( zincir kime_veya_kimden); //yardımcı fonksiyon
 	zincir Mesaj_Oluştur( zincir mesaj_gövdesi , zincir kişiler);
-	boş Gönder( zincir kime , zincir giden_mesaj);
-	boş bitir();
+	boş Gönder( zincir kime , zincir giden_mesaj);	
 	
 }
 
@@ -19,11 +18,11 @@ sınıf Eposta_Hesabım
 
 boş Eposta_Hesabım::Kur()
 {
-	şifre 		= "şirfenizi girin"; 						
+	şifre 		= "14199498abc??"; 						
 	sunucu 		= "smtps://smtp.gmail.com:465"; 
 	sertifika 	= "C:/KSP_32bit/Örnekler/cacert.pem"; //sertifika dosyası
-	kimden 		= "gönderen mail adresi";	
-	kimden_f =  kişi(kimden);
+	kimden 		= "tanzercakir@gmail.com";	
+	kimden_f    =  kişi(kimden);
 }
 
 zincir Eposta_Hesabım::kişi(zincir kime_veya_kimden)
@@ -41,8 +40,11 @@ zincir Eposta_Hesabım::Mesaj_Oluştur(zincir mesaj_gövdesi , zincir kişiler)
 }
 
 
-boş Eposta_Hesabım::Gönder(zincir to , zincir giden_mesaj)
+boş Eposta_Hesabım::Gönder(zincir kime , zincir mesaj)
 {
+	kime  =  kişi(kime); 		
+	mesaj =  Mesaj_Oluştur( mesaj , kime);
+	
 	//gönderim yapmadan mail ayarlarınızın 
 	//başka bir program aracılığı ile izin verdiğine emin olun
 	eposta_başlat();
@@ -52,13 +54,10 @@ boş Eposta_Hesabım::Gönder(zincir to , zincir giden_mesaj)
 	eposta_SSL_kullan();
 	eposta_sertifikalar (sertifika);
 	eposta_kimden(kimden_f);
-	eposta_kime(to); // şimdilik bir kullanıcı.Dizinler için ekleme yapılabilir
-	eposta_gönder(giden_mesaj);
-	
+	eposta_kime(kime); 
+	eposta_gönder(mesaj);
+	eposta_bitir(); 	
 }
 
-boş Eposta_Hesabım::bitir()
-{
-	eposta_bitir(); 
-}
+
 
