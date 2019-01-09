@@ -1,0 +1,160 @@
+<html>
+<meta http-equiv="Content-Type" content="text/html;charset=ISO-8859-9">
+	<head>
+
+		<base href="http://www.kolaysunucuprogram.com/KSP/Yazım/"> 
+		
+		<link rel="stylesheet" type="text/css" href="Yazım.css">
+		
+		<style> form {position:relative; left:30px; line-height:300%;} </style>
+		
+		<script> 	
+		
+ 
+		function Kayıt() 
+		{	
+			/*	*/	
+			var ürün = document.getElementById("ürün").value;
+			var marka = document.getElementById("marka").value;
+			var fiyat = document.getElementById("fiyat").value;
+			var çözünürlük = document.getElementById("çözünürlük").value;
+			var os = document.getElementById("os").value;			
+			
+			var dataString = 'ürün=' + ürün + '&marka=' + marka + '&fiyat=' + fiyat + '&çözünürlük=' + çözünürlük +  '&os=' + os;
+			
+			var xhttp;
+			if (dataString.length == 0) 
+			{ 
+				document.getElementById("ana").innerHTML = "Form Verileri Okunamadı";
+				return;
+			}				
+			
+			
+			xhttp = new XMLHttpRequest();						
+			xhttp.onreadystatechange = function() 
+			{
+				if (this.readyState == 4 && this.status == 200) 
+				{					
+					document.getElementById("ana").innerHTML = this.responseText;
+				}				
+
+			};			
+			xhttp.open('POST', 'http://localhost/stok/Stok_Kaydet.ksp?', true);	
+			xhttp.setRequestHeader('Content-type','application/x-www-form-urlencoded'); 
+			xhttp.send(dataString);			
+		}
+	
+		function Goster()
+		{
+			var sorgum = document.getElementById("sorgu").value;
+			sorgum = 'sorgu='+sorgum;
+			
+			if (sorgum.length == 0) 
+			{ 
+				document.getElementById("anam").innerHTML = "Form Verileri Okunamadı";
+				return;
+			}	
+			
+			
+			var htp;
+			htp = new XMLHttpRequest();				
+			htp.onreadystatechange = function() 
+			{
+				if (this.readyState == 4 && this.status == 200) 
+				{
+					document.getElementById("anam").innerHTML = this.responseText;
+				}
+				
+				else
+					document.getElementById("anam").innerHTML = "Alınamadı";
+
+			};	
+
+			htp.open('GET', 'http://localhost/stok/Stok_Goster.ksp?' + sorgum, true);	
+			htp.setRequestHeader('Content-type','application/x-www-form-urlencoded'); 
+			htp.send();			
+		}
+		
+		
+		</script>
+		
+	</head>
+
+	<body>
+	
+		<div id = "header"> 
+			<p class = "baslık"> KSP - Kolay Sunucu Programı</p> 
+		</div>
+		
+		<div id = "tailor"> 
+			<a class = "tailor_p" style="width:100px;"> Menu  </a> 
+			<a class = "tailor_p" style="width:150;">   Menu </a>
+			<a class = "tailor_p" style="width:150px;"> Menu </a>
+			<a class = "tailor_p" style="width:150px;"> Menu </a>
+			<a class = "tailor_p" style="width:150px;"> Menu </a>
+		</div>
+		
+		<div id = "menu"> 
+			<br>				
+			<h4> Stok İşlem </h4>
+			<a class = "menu_a" > Menu </a>
+			<a class = "drop" >  Alt Menu </a>
+			<a class = "drop" >  Alt Menu  </a>
+			<a class = "drop" >  Alt Menu </a>
+			<a class = "drop" >  Alt Menu  </a>
+			<a class = "drop" >  Alt Menu </a>
+		
+			
+			
+		</div>
+		
+		<div id = "ana"> 
+		
+			<br>
+			<h3>Stok Giriş</h3>
+			
+			<form  id="kaydet" action="">
+				Ürün adı:<br>
+				<input id="ürün" type="text" name="ürün" >
+				<br>
+				Marka:<br>
+				<input id="marka" type="text" name="marka" >
+				<br>
+				Birim Fiyat:<br>
+				<input id="fiyat" type="text" name="fiyat" >
+				<br>
+				Çözünürlük:<br>
+				<input id="çözünürlük" type="text" name="çözünürlük">
+				<br>
+				İşletim Sistemi:<br>
+				<input id="os" type="text" name="os" >
+				<br>
+				<br>
+				<input id="kaydet" type="submit" name="kayıt" value="Kayıt" onclick="Kayıt()">
+			</form> 
+				<br><br>
+			<!--	  -->
+				
+			<div id="anam" style="position:relative; left30px; background-color:yellow; width:50%; height:10%;"> 
+			<form action="" >
+				Ürün adı:<br>
+				<input id="sorgu" type="text" name="sorgu" >
+				<br>
+				<br>
+				<input id="göster" type="submit" name="göster" value="Goster" onclick="Goster()">
+			</form> 
+				<br><br>
+		
+			</div>	
+			
+		
+		</div>
+		
+
+		
+		
+		<div id = "reklam"> </div>
+	
+	</body>
+
+</html> 
