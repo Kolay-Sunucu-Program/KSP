@@ -1,0 +1,18 @@
+ekle "C:/Apache24/htdocs/Stok/VT Sınıfı.ksp";
+
+// yerleştirmeye hazırlamak için	
+zincir 	ürün 		= "'" + FORM_POST_AJAX("ürün") + "'" + ",";
+zincir 	marka 		= "'" + FORM_POST_AJAX("marka") + "'"  + "," ;
+zincir 	fiyat 		= 		FORM_POST_AJAX("fiyat")  + ","; //sayısal değer
+zincir 	çözünürlük 	= "'" + FORM_POST_AJAX("çözünürlük") + "'"  + ",";
+zincir 	os 			= "'" + FORM_POST_AJAX("os") + "'" ;
+
+zincir  vt_yerleştir = "INSERT into stoklar values ("+ ürün + marka + fiyat + çözünürlük + os +")";
+
+VT verim;
+verim.Kur();
+verim.Veri_Kayıt(vt_yerleştir);
+verim.VT_Kapat();
+
+
+
