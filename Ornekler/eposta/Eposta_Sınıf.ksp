@@ -1,0 +1,60 @@
+sınıf Eposta_Hesabım
+{
+	zincir şifre; 						
+	zincir sunucu;  
+	zincir sertifika; 
+	zincir kimden;
+	zincir kimden_f; //kimden zincirinin formatlanmış hali. Yani <kimden>
+	
+	// Fonksiyonlar
+	boş Kur(); 								// sınıf elemanlarını başlatma
+	zincir kişi( zincir kime_veya_kimden); //yardımcı fonksiyon
+	zincir Mesaj_Oluştur( zincir mesaj_gövdesi , zincir kişiler);
+	boş Gönder( zincir kime , zincir giden_mesaj);	
+	
+}
+
+// sınıf tanımlama bitti , şimdi fonksiyon tanımları
+
+boş Eposta_Hesabım::Kur()
+{
+	şifre 		= "14199498abc??"; 						
+	sunucu 		= "smtps://smtp.gmail.com:465"; 
+	sertifika 	= "C:/KSP_32bit/Örnekler/cacert.pem"; //sertifika dosyası
+	kimden 		= "tanzercakir@gmail.com";	
+	kimden_f    =  kişi(kimden);
+}
+
+zincir Eposta_Hesabım::kişi(zincir kime_veya_kimden)
+{
+	zincir o_kişi = "<" + kime_veya_kimden + ">";
+	dön o_kişi;
+}
+
+zincir Eposta_Hesabım::Mesaj_Oluştur(zincir mesaj_gövdesi , zincir kişiler)
+{
+	zincir To   = "To: " + kişiler + "\r\n";
+	zincir From = "From: " + kimden_f + "(Kullanıcı)\r\n";
+	
+	dön To + From + mesaj_gövdesi;	
+}
+
+
+boş Eposta_Hesabım::Gönder(zincir kime , zincir mesaj)
+{
+	kime  =  kişi(kime); 		
+	mesaj =  Mesaj_Oluştur( mesaj , kime);
+	
+	//gönderim yapmadan mail ayarlarınızın 
+	//başka bir program aracılığı ile izin verdiğine emin olun
+	eposta_başlat();
+	eposta_kullanıcı(kimden);
+	eposta_şifre(şifre);
+	eposta_mail_sunucu(sunucu);
+	eposta_SSL_kullan();
+	eposta_sertifikalar (sertifika);
+	eposta_kimden(kimden_f);
+	eposta_kime(kime); 
+	eposta_gönder(mesaj);
+	eposta_bitir(); 	
+}
