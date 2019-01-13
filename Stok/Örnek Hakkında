@@ -1,5 +1,0 @@
-Bu örnek Google Chrome tarayıcı ile test edilmiştir.
-Diğer tarayıcılarda form yenileme ile ilgili sorunlar yaşayabilirsiniz.
-Program özellikle AJAX ile veri tabanı işlemleri için temel teşkil eder.
-Programın fonksiyonel kısımlarında eksiklikler olabilir. 
-(Özellikle AJAX hata kontrolleri veya istek tamamlanması ile ilgili)
