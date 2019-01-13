@@ -1,0 +1,128 @@
+ekle "C:/Apache24/htdocs/AVM/Sabitler.ksp";
+
+sınıf VT
+{
+	zincir db_param;
+	zincir sürücü;
+	zincir tablo;
+	
+	boş Kur();
+	boş Veri_Kayıt( zincir kaydedilecek);
+	zincir Tablo_Al( zincir sorgu_sonuc);	
+	boş Tablo_Giriş();
+	boş VT_Kapat();
+}//
+
+boş VT::Kur()
+{
+	tam satır = 0;
+	tam ok;
+	sürücü = "odbc";
+	db_param = "user=root password=tanzer datasource=MySQL ";
+	
+	// Veritabanı açma işlemleri başlayacak. Hata ile karşılaşılırsa 
+	// programdan çıkılacak
+	ok = apr_dbd_başlat();  
+	eğer (ok)
+	{
+		YAZ apr_dbd_hata(ok);
+		HTTP 501;
+	}
+		
+	ok = apr_dbd_sürücü_al(sürücü);
+	eğer (ok)
+	{
+		YAZ apr_dbd_hata(ok);
+		HTTP 501;
+	}
+	
+	ok = apr_dbd_aç(db_param);
+	eğer (ok)
+	{
+		YAZ apr_dbd_hata(ok);
+		HTTP 501;
+	}
+
+}//bitiş
+
+boş VT::Veri_Kayıt( zincir kaydedilecek)
+{
+	tam ok = apr_dbd_sorgu ( 0 , kaydedilecek); 
+
+	eğer (ok)
+	{
+		YAZ apr_dbd_hata(ok);
+		HTTP 501;
+	}
+}//bitiş
+
+zincir VT::Tablo_Al(zincir sorgu_sonuc)
+{
+	tam ok = 0;
+	tam satır = 0;
+	tam rastgele = 0;
+	tam sütun_sayı = 0;
+	zincir sütun_değeri;
+	
+	
+	ok = apr_dbd_sonuç_dön (sorgu_sonuc , rastgele);	
+	eğer (ok == 0)
+		sütun_sayı = apr_dbd_süt_sayı ();
+		
+	yoksa (ok != 0)
+	{
+		YAZ apr_dbd_hata(ok);
+		HTTP 501;
+	}
+	
+	// Gereksiz zincir elemanları kodumuzu kalabalıklaştırmasın
+	Tablo_Giriş(); 		
+		
+	ok = apr_dbd_satır_al (satır);
+	eğer (ok)
+	{
+		YAZ apr_dbd_hata(ok);
+		HTTP 501;
+	}
+	
+	tam sayac_2 = 1;
+	oldukça (ok == 0)	// her satır için
+	{		
+		 YAZ tr;	//satır ekle
+		 oldukça (sayac_2 <= sütun_sayı)//her sütun için
+		 {
+		     sütun_değeri = apr_dbd_sütun_al (sayac_2);			 
+			 YAZ td + sütun_değeri + td_;  // sütunu tabloya yazdır
+			 sayac_2++;
+		 }
+		 
+		 YAZ tr_;			 
+		 sayac_2 = 1; //sütunlar yeniden taranacak
+		 ok = apr_dbd_satır_al(satır);
+		 eğer (ok)
+			çık;
+	}	
+
+	YAZ table_ ;
+
+}//bitiş
+
+boş VT::Tablo_Giriş()
+{
+	YAZ table;	
+		YAZ th + "Sütun1" + th_;
+		YAZ th + "Sütun2" + th_;
+		YAZ th + "Sütun3" + th_;
+		YAZ th + "Sütun4" + th_;
+		YAZ th + "Sütun5" + th_;
+}//bitiş
+
+boş VT::VT_Kapat()
+{
+	tam ok = apr_dbd_kapat();
+	eğer (ok)
+	{
+		YAZ apr_dbd_hata(ok);
+		HTTP 501;
+	}
+}//bitiş
