@@ -1,0 +1,36 @@
+ekle "C:/KSP_32bit/Rutinler/Curl_Rutin.ksp";
+
+tam     sonuc = 0;
+zincir	şifre 		= "....................."; 						
+zincir	sunucu 		= "smtps://smtp.gmail.com:465"; 
+zincir	sertifika 	= "C:/KSP_32bit/Örnekler/cacert.pem"; 
+zincir	kimden 		= "xxxxxxxxxx@gmail.com";
+zincir	kimden_f        = "<" + kimden + ">";
+zincir  mesaj           =  "Subject : SMTP TLS örnek mesaj 
+			\r\n
+			\r\n 
+			Mesaj içeriği burada başlıyor.\r\n
+			http://www.kolaysunucuprogram.com \r\n
+			Bir çok metin içerebilir, MIME kodlu olabilir.\r\n
+			Daha ileri bilgi için RFC5322.\r\n";
+
+	 
+curl cx;	 
+curl_list clist;     //gönderilenler listesi oluşturmak için
+Curl_Liste_Ekle(clist , "yyyyyyyyyy@deneme.com");
+Curl_Liste_Ekle(clist , "zzzzzzzzzz@deneme.com");
+
+Curl_Başlat(cx);
+sonuc = Curl_Kur(cx , CURLSEÇ_KULLİSİM,       kimden);   //CURLOPT_USERNAME
+sonuc = Curl_Kur(cx , CURLSEÇ_ŞİFRE,          şifre);    //CURLOPT_PASSWORD
+sonuc = Curl_Kur(cx , CURLSEÇ_URL,            sunucu);   //CURLOPT_URL
+sonuc = Curl_Kur(cx , CURLSEÇ_SSL_KULLAN,     CURLSEÇ_SSL_KULLAN);
+sonuc = Curl_Kur(cx , CURLSEÇ_SERTİFİKA,      sertifika);//CURLOPT_CAINFO
+sonuc = Curl_Kur(cx , CURLSEÇ_POSTA_KİMDEN,   kimden_f); //CURLOPT_MAIL_FROM
+sonuc = Curl_Kur(cx , CURLSEÇ_POSTA_ALICILAR, clist);    //CURLOPT_MAIL_RCPT
+sonuc = Curl_Kur(cx , CURLSEÇ_YÜKLE,          1);        //CURLOPT_UPLOAD
+sonuc = Curl_Kur(cx , CURLSEÇ_VERİOKU,        mesaj);    //CURLOPT_READDATA
+sonuc = Curl_Yap(cx);
+Curl_Kapat(cx);
+
+Curl_Liste_Sil(clist);
